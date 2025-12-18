@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Countdown to 100,000 Hours</title>
+<style>
+  body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background: #000;
+    color: #0f0;
+    font-family: monospace;
+    font-size: 2rem;
+    letter-spacing: 2px;
+  }
+</style>
+</head>
+<body>
+
+<div id="timer">--:--:--:--:--:--:---</div>
+
+<script>
+  // Target date: 15 May 2037, 18:00:00
+  const targetDate = new Date('2037-05-15T18:00:00');
+
+  function updateTimer() {
+    const now = new Date();
+    let ms = targetDate - now;
+
+    if (ms <= 0) {
+      document.getElementById("timer").textContent = "00:00:00:00:00:00:000";
+      return;
+    }
+
+    const yearMs  = 365 * 24 * 60 * 60 * 1000;
+    const monthMs = 30 * 24 * 60 * 60 * 1000;
+    const dayMs   = 24 * 60 * 60 * 1000;
+    const hourMs  = 60 * 60 * 1000;
+    const minMs   = 60 * 1000;
+
+    const years   = Math.floor(ms / yearMs);  ms %= yearMs;
+    const months  = Math.floor(ms / monthMs); ms %= monthMs;
+    const days    = Math.floor(ms / dayMs);   ms %= dayMs;
+    const hours   = Math.floor(ms / hourMs);  ms %= hourMs;
+    const minutes = Math.floor(ms / minMs);   ms %= minMs;
+    const seconds = Math.floor(ms / 1000);    ms %= 1000;
+    const millis  = ms;
+
+    document.getElementById("timer").textContent =
+      String(years).padStart(2,"0") + ":" +
+      String(months).padStart(2,"0") + ":" +
+      String(days).padStart(2,"0") + ":" +
+      String(hours).padStart(2,"0") + ":" +
+      String(minutes).padStart(2,"0") + ":" +
+      String(seconds).padStart(2,"0") + ":" +
+      String(millis).padStart(3,"0");
+  }
+
+  setInterval(updateTimer, 10);
+</script>
+
+</body>
+</html>
